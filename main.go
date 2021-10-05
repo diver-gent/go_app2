@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello, App2")
+	greeting := os.Getenv("GREETING")
+	fmt.Fprintf(w, "%s, 世界\n", greeting)
 }
 
 func main() {
 	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":6666", nil))
+	log.Fatal(http.ListenAndServe(":8888", nil))
 }
